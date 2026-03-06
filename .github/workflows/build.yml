@@ -1,0 +1,39 @@
+name: Build Ubuntu Frame Kiosko
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build_snap:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Snapcraft
+        run: |
+          sudo snap install snapcraft --classic
+
+      - name: Install NPM dependencies
+        run: npm ci || npm install
+
+      - name: Build Kiosk Snap
+        run: npm run build:linux
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Snap Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: KioskBC-Snap-Installer
+          path: dist/*.snap
+          retention-days: 7

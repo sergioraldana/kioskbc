@@ -1,0 +1,51 @@
+{
+  "name": "kioskbc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build && env -u ELECTRON_RUN_AS_NODE electron .",
+    "dev": "concurrently \"npm run watch\" \"env -u ELECTRON_RUN_AS_NODE electron .\"",
+    "build": "tailwindcss -i ./src/input.css -o ./src/output.css",
+    "watch": "tailwindcss -i ./src/input.css -o ./src/output.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "build:linux": "npm run build && electron-builder --linux snap"
+  },
+  "build": {
+    "appId": "com.usac.kioskbc",
+    "productName": "KioskBC",
+    "linux": {
+      "target": [
+        "snap"
+      ],
+      "category": "Education"
+    },
+    "snap": {
+      "confinement": "strict",
+      "grade": "stable",
+      "plugs": [
+        "default",
+        "wayland",
+        "opengl",
+        "network",
+        "network-bind"
+      ]
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.1",
+    "concurrently": "^9.2.1",
+    "electron": "^40.8.0",
+    "electron-builder": "^26.8.1",
+    "tailwindcss": "^4.2.1"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1"
+  }
+}
