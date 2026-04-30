@@ -17,8 +17,9 @@
 
 body {
   @apply bg-slate-900 text-slate-100 font-sans tracking-wide overflow-hidden;
-  /* subtle deep background glow */
-  background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 70%);
+  /* Deep ocean blue with a touch of purple */
+  background-color: #020617;
+  background-image: radial-gradient(circle at 50% -20%, #4c1d95 0%, #0c4a6e 40%, #020617 100%);
 }
 
 .glass-panel {
@@ -26,5 +27,5 @@ body {
 }
 
 .gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500;
 }

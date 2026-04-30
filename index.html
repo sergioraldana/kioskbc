@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; frame-src *">
+        content="default-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; frame-src *">
     <title>Buscador de Recursos</title>
     <link rel="stylesheet" href="./src/output.css">
     <!-- FontAwesome for Icons -->
@@ -19,12 +19,11 @@
         class="hidden w-24 sm:w-64 glass-panel border-r border-white/5 flex-col items-center sm:items-start py-8 px-4 relative z-20 transition-all duration-300">
         <!-- Logo Area -->
         <div class="mb-12 w-full flex justify-center sm:justify-start sm:px-4 cursor-pointer" onclick="loadIframe('')">
-            <div
-                class="h-12 w-12 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center shadow-lg shadow-primary-500/20">
-                <i class="fa-solid fa-layer-group text-white text-xl"></i>
+            <div class="h-12 w-12 rounded-xl overflow-hidden flex items-center justify-center shadow-lg shadow-primary-500/20 bg-white/10">
+                <img src="public/images/logobc.png" alt="Logo BC" class="h-10 w-auto object-contain">
             </div>
             <div class="ml-4 hidden sm:block">
-                <h2 class="text-xl font-bold text-white tracking-wider">Kiosk<span class="gradient-text">BC</span></h2>
+                <h2 class="text-xl font-bold text-white tracking-wider">Kiosko <span class="gradient-text">BC</span></h2>
             </div>
         </div>
 
@@ -85,37 +84,40 @@
                 <span class="ml-3 font-medium hidden sm:block relative z-10">LexGlobal</span>
             </a>
         </div>
-        <!-- Footer Version Sidebar -->
-        <div class="mt-auto w-full pt-4 border-t border-white/5 text-center sm:text-left text-slate-500 text-xs font-mono">
-            <span class="hidden sm:inline">KioskBC v. </span><span id="app-version-sidebar">...</span>
-        </div>
+
     </nav>
 
     <!-- Main Content Area -->
     <main class="flex-1 overflow-hidden relative z-10" id="main-view">
 
         <!-- Welcome Screen (Visible only when no iframe is loaded) -->
-        <div id="home-view" class="h-full w-full overflow-y-auto p-8 lg:p-12 xl:p-16">
-            <!-- Header Section -->
-            <header class="mb-16 max-w-5xl mx-auto animate-float pt-8">
-                <h1 class="text-5xl lg:text-7xl font-extrabold text-white mb-6 tracking-tight leading-tight">
-                    Buscador de <br /><span class="gradient-text">Recursos</span>
-                </h1>
-                <p class="text-xl text-slate-400 max-w-2xl font-light leading-relaxed">
-                    Accede rápidamente a las bases de datos académicas, repositorios y plataformas digitales de
-                    Biblioteca Central.
-                </p>
-            </header>
+        <div id="home-view" class="h-full w-full overflow-y-auto p-8 lg:p-12 xl:p-16 relative">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 z-0 opacity-10 pointer-events-none" style="background-image: url('public/images/patron.png'); background-repeat: repeat; background-size: 400px;"></div>
+            
+            <div class="relative z-10">
+                <!-- Header Section -->
+                <header class="mb-16 max-w-5xl mx-auto pt-8 flex flex-col md:flex-row items-center md:items-start gap-8">
+                    <img src="public/images/logobc.png" alt="Logo Biblioteca Central" class="h-32 md:h-40 w-auto object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+                    <div class="text-center md:text-left">
+                        <h1 class="text-5xl lg:text-6xl font-extrabold text-white mb-4 tracking-tight leading-tight">
+                            Recursos Virtuales <br /><span class="gradient-text">Biblioteca Central</span>
+                        </h1>
+                        <p class="text-xl text-slate-300 max-w-2xl font-light leading-relaxed mx-auto md:mx-0">
+                            Accede rápidamente a las bases de datos académicas, repositorios y plataformas digitales de la Universidad de San Carlos de Guatemala.
+                        </p>
+                    </div>
+                </header>
 
-            <!-- Cards Grid -->
+                <!-- Cards Grid -->
             <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-12">
 
                 <!-- Card 1: Catalogo -->
                 <div class="glass-panel p-6 rounded-2xl hover:-translate-y-2 transition-transform duration-300 cursor-pointer group flex flex-col h-full"
                     onclick="loadIframe('https://biblos.usac.edu.gt/opac/')">
                     <div
-                        class="h-14 w-14 rounded-full bg-teal-500/10 flex items-center justify-center mb-6 group-hover:bg-teal-500/20 transition-colors border border-teal-500/20">
-                        <i class="fa-solid fa-book-open text-2xl text-teal-400"></i>
+                        class="h-16 w-16 rounded-full bg-teal-500/20 flex items-center justify-center mb-6 group-hover:bg-teal-500/30 transition-colors border border-teal-500/30">
+                        <i class="fa-solid fa-book-open text-2xl text-white"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">Catálogo Biblioteca Central</h3>
                     <p class="text-slate-400 text-sm flex-1">Encuentra libros, tesis y documentos físicos disponibles en
@@ -131,8 +133,8 @@
                 <div class="glass-panel p-6 rounded-2xl hover:-translate-y-2 transition-transform duration-300 cursor-pointer group flex flex-col h-full"
                     onclick="loadIframe('http://www.repositorio.usac.edu.gt/')">
                     <div
-                        class="h-14 w-14 rounded-full bg-fuchsia-500/10 flex items-center justify-center mb-6 group-hover:bg-fuchsia-500/20 transition-colors border border-fuchsia-500/20">
-                        <i class="fa-solid fa-graduation-cap text-2xl text-fuchsia-400"></i>
+                        class="h-16 w-16 rounded-full bg-fuchsia-500/20 flex items-center justify-center mb-6 group-hover:bg-fuchsia-500/30 transition-colors border border-fuchsia-500/30">
+                        <i class="fa-solid fa-graduation-cap text-2xl text-white"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">Tesis Digitales</h3>
                     <p class="text-slate-400 text-sm flex-1">Repositorio institucional de trabajos de graduación y tesis
@@ -148,8 +150,8 @@
                 <div class="glass-panel p-6 rounded-2xl hover:-translate-y-2 transition-transform duration-300 cursor-pointer group flex flex-col h-full"
                     onclick="loadIframe('https://research.ebsco.com/c/pbjfjh/search')">
                     <div
-                        class="h-14 w-14 rounded-full bg-blue-500/10 flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors border border-blue-500/20">
-                        <i class="fa-solid fa-microscope text-2xl text-blue-400"></i>
+                        class="h-16 w-16 rounded-full bg-blue-500/20 flex items-center justify-center mb-6 group-hover:bg-blue-500/30 transition-colors border border-blue-500/30">
+                        <i class="fa-solid fa-microscope text-2xl text-white"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">Artículos Científicos</h3>
                     <p class="text-slate-400 text-sm flex-1">Base de datos multidisciplinaria EBSCO con millones de
@@ -165,8 +167,8 @@
                 <div class="glass-panel p-6 rounded-2xl hover:-translate-y-2 transition-transform duration-300 cursor-pointer group flex flex-col h-full"
                     onclick="loadIframe('https://elibro.net/es/lc/uscg/colecciones/ELC004?prev=col')">
                     <div
-                        class="h-14 w-14 rounded-full bg-orange-500/10 flex items-center justify-center mb-6 group-hover:bg-orange-500/20 transition-colors border border-orange-500/20">
-                        <i class="fa-solid fa-tablet-screen-button text-2xl text-orange-400"></i>
+                        class="h-16 w-16 rounded-full bg-orange-500/20 flex items-center justify-center mb-6 group-hover:bg-orange-500/30 transition-colors border border-orange-500/30">
+                        <i class="fa-solid fa-tablet-screen-button text-2xl text-white"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">Libros Digitales (eLibro)</h3>
                     <p class="text-slate-400 text-sm flex-1">Plataforma integral con más de 100,000 libros electrónicos
@@ -182,8 +184,8 @@
                 <div class="glass-panel p-6 rounded-2xl hover:-translate-y-2 transition-transform duration-300 cursor-pointer group flex flex-col h-full"
                     onclick="loadIframe('https://portal.lexglobal.com.gt/login?pais=usac')">
                     <div
-                        class="h-14 w-14 rounded-full bg-yellow-500/10 flex items-center justify-center mb-6 group-hover:bg-yellow-500/20 transition-colors border border-yellow-500/20">
-                        <i class="fa-solid fa-scale-balanced text-2xl text-yellow-400"></i>
+                        class="h-16 w-16 rounded-full bg-yellow-500/20 flex items-center justify-center mb-6 group-hover:bg-yellow-500/30 transition-colors border border-yellow-500/30">
+                        <i class="fa-solid fa-scale-balanced text-2xl text-white"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">Legislación Guatemalteca</h3>
                     <p class="text-slate-400 text-sm flex-1">Portal LexGlobal para consulta de leyes, normativas y
@@ -197,10 +199,9 @@
 
             </div>
             
-            <!-- Welcome Footer Version Main -->
-            <div class="max-w-5xl mx-auto border-t border-white/5 pt-6 text-center text-slate-600 text-sm font-mono mt-8">
-                KioskBC v. <span id="app-version-main">...</span>
-            </div>
+
+            
+            </div> <!-- End relative z-10 wrapper -->
         </div>
 
         <!-- Webview Container -->
@@ -255,14 +256,7 @@
                 webview.src = url;
             }
         }
-        // Setup version on load
-        window.addEventListener('DOMContentLoaded', async () => {
-            if (window.api && window.api.getAppVersion) {
-                const version = await window.api.getAppVersion();
-                document.getElementById('app-version-sidebar').innerText = version;
-                document.getElementById('app-version-main').innerText = version;
-            }
-        });
+
     </script>
 </body>
 
